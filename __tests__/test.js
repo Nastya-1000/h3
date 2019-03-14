@@ -11,7 +11,7 @@ axios.defaults.adapter = httpAdapter;
 test('should work', async () => {
   const host = 'https://hexlet.io';
   const fileName = 'hexlet-io-courses.html';
-  const tmpDir = await fs.mkdtemp(os.tmpdir());
+  const tmpDir = await fs.mkdtemp(path.resolve(__dirname, os.tmpdir()));
   const filePath = path.resolve(tmpDir, fileName);
 
   const data = await fs.readFile('__tests__/__fixtures__/result.txt', 'utf-8');
