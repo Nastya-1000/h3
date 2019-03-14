@@ -28,6 +28,9 @@
     "url": "https://github.com/Nastya-1000/project-lvl3-s418/issues"
   },
   "homepage": "https://github.com/Nastya-1000/project-lvl3-s418#readme",
+  "engines": {
+    "node": ">=11"
+  },
   "jest": {
     "testEnvironment": "node",
     "verbose": true
