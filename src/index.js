@@ -2,12 +2,12 @@ import url from 'url';
 import { promises as fs } from 'fs';
 import axios from 'axios';
 import path from 'path';
-import { words } from 'lodash';
+import { _ } from 'lodash';
 
 const makeFileNameByURL = (pageURL) => {
   const { host, pathname } = url.parse(pageURL);
   const pageURLWithoutProtocol = `${host}/${pathname}`;
-  return words(pageURLWithoutProtocol, /[^./]+/g).join('-').concat('.html');
+  return _.words(pageURLWithoutProtocol, /[^./]+/g).join('-').concat('.html');
 };
 
 const pageLoader = (pageURL, dirpath) => {
