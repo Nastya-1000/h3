@@ -1,0 +1,61 @@
+{
+  "name": "project3_nnn",
+  "version": "1.0.0",
+  "description": "Project lvl3",
+  "keywords": [
+    "project",
+    "lvl3"
+  ],
+  "scripts": {
+    "test": "jest",
+    "babel-node": "babel-node",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "prepublishOnly": "npm run build"
+  },
+  "bin": {
+    "page-loader": "dist/bin/page-loader.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nastya-1000/project-lvl3-s418.git"
+  },
+  "author": "N",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nastya-1000/project-lvl3-s418/issues"
+  },
+  "homepage": "https://github.com/Nastya-1000/project-lvl3-s418#readme",
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/runtime": "^7.3.4",
+    "babel-eslint": "^10.0.1",
+    "babel-polyfill": "^6.26.0",
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jest": "^22.3.2",
+    "jest": "^24.5.0",
+    "jest-cli": "^24.5.0",
+    "nock": "^10.0.6"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "commander": "^2.19.0",
+    "fs": "0.0.1-security",
+    "lodash": "^4.17.11",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
+  }
+}
