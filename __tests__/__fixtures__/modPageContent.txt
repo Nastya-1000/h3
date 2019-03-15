@@ -1,0 +1,12 @@
+<!DOCTYPE html><html><head>
+</head>
+<body>
+    <h1>H1</h1>
+    <link href="hexlet-io-courses_files/content-file1.css">
+    <script src="hexlet-io-courses_files/content-file2.js"></script>
+    <p>Something</p>
+    <img src="hexlet-io-courses_files/content-img1.jpeg">
+    <img src="hexlet-io-courses_files/content-img2.png">
+
+
+</body></html>

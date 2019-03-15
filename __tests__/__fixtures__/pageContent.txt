@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <h1>H1</h1>
+    <link href="/content/file1.css">
+    <script src="/content/file2.js"></script>
+    <p>Something</p>
+    <img src="/content/img1.jpeg">
+    <img src="/content/img2.png">
+</body>
+</html>

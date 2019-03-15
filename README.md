@@ -6,5 +6,5 @@
 
 <details>
 <summary>Install & work</summary>
-<a href="https://asciinema.org/a/s7cru5Ni20or16cyicHj45CSL" target="_blank"><img src="https://asciinema.org/a/s7cru5Ni20or16cyicHj45CSL.svg" /></a>
+<a href="https://asciinema.org/a/Zc21f4Fsqxhf77wvZlg3IdDsK" target="_blank"><img src="https://asciinema.org/a/Zc21f4Fsqxhf77wvZlg3IdDsK.svg" /></a>
 </details>
