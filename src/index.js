@@ -4,6 +4,9 @@ import axios from 'axios';
 import path from 'path';
 import { _ } from 'lodash';
 import cheerio from 'cheerio';
+import debug from 'debug';
+
+const logDebug = debug('PageLoader');
 
 const attrs = {
   link: 'href',
@@ -49,10 +52,13 @@ const responseTypes = {
 };
 
 const pageLoader = (pageURL, pathToMainDir) => {
+  logDebug(`Page URL - ${pageURL}`);
   const nameOfFileForPage = makeFileOrDirNameByLink(pageURL, 'fileForPage');
   const pathToFileForPage = makePathToFileOrDir(pathToMainDir, nameOfFileForPage);
+  logDebug(`Path to file for content of page - ${pathToFileForPage}`);
   const nameOfDirForRes = makeFileOrDirNameByLink(pageURL, 'dirForRes');
   const pathToDirForRes = makePathToFileOrDir(pathToMainDir, nameOfDirForRes);
+  logDebug(`Path to dir for resources - ${pathToDirForRes}`);
   const resURLs = [];
 
   return axios.get(pageURL)
@@ -63,18 +69,25 @@ const pageLoader = (pageURL, pathToMainDir) => {
         $(tag).each((i, elem) => {
           const link = $(elem).attr(attrs[tag]);
           if ((link !== undefined) && isResLocal(link)) {
+            logDebug(`Resource link (from tag ${tag}) - ${link}`);
             const resURL = url.resolve(pageURL, link);
             const nameOfFileForRes = makeFileOrDirNameByLink(link, 'fileForRes');
             const pathToFileForRes = makePathToFileOrDir(pathToDirForRes, nameOfFileForRes);
+            logDebug(`Path to file for this resources - ${pathToFileForRes}`);
             resURLs.push({ resURL, filepath: pathToFileForRes });
             $(elem).attr(attrs[tag], makePathToFileOrDir(nameOfDirForRes, nameOfFileForRes));
           }
         });
       });
+      logDebug('Write content of page to file');
       return fs.writeFile(pathToFileForPage, $.html());
     })
-    .then(() => fs.mkdir(pathToDirForRes))
     .then(() => {
+      logDebug('Create dir for resources');
+      return fs.mkdir(pathToDirForRes);
+    })
+    .then(() => {
+      logDebug('Write resources to files');
       resURLs.forEach(({ resURL, filepath }) => {
         axios({
           method: 'get',

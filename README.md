@@ -8,3 +8,8 @@
 <summary>Install & work</summary>
 <a href="https://asciinema.org/a/Zc21f4Fsqxhf77wvZlg3IdDsK" target="_blank"><img src="https://asciinema.org/a/Zc21f4Fsqxhf77wvZlg3IdDsK.svg" /></a>
 </details>
+
+<details>
+<summary>Debug</summary>
+<a href="https://asciinema.org/a/r6Y67G6CeK65nER8XxDI8xq1E" target="_blank"><img src="https://asciinema.org/a/r6Y67G6CeK65nER8XxDI8xq1E.svg" /></a>
+</details>
