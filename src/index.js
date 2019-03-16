@@ -5,6 +5,7 @@ import path from 'path';
 import { _ } from 'lodash';
 import cheerio from 'cheerio';
 import debug from 'debug';
+import Listr from 'listr';
 
 const logDebug = debug('PageLoader');
 
@@ -104,12 +105,14 @@ const pageLoader = (pageURL, pathToMainDir) => {
     })
     .then(() => {
       logDebug('Write resources to files');
-      const arrPromises = resURLs.map(({ resURL, filepath }) => axios({
+      const arrPromises = resURLs.map(({ resURL, filepath }) => [(axios({
         method: 'get',
         responseType: responseTypes[path.parse(resURL).ext.slice(1)],
         url: resURL,
-      }).then(responseRes => fs.writeFile(filepath, responseRes.data)));
-      return Promise.all(arrPromises);
+      }).then(responseRes => fs.writeFile(filepath, responseRes.data))), resURL]);
+      const arrTasksForListr = arrPromises.map(([promise, resURL]) => ({ title: `Loading ${resURL}`, task: () => promise }));
+      const tasks = new Listr(arrTasksForListr, { concurrent: true });
+      return tasks.run();
     })
     .catch((e) => {
       throw new Error(makeErrorMessage(e));

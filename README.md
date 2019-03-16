@@ -18,3 +18,8 @@
 <summary>Error handling</summary>
 <a href="https://asciinema.org/a/479bUXPpKkCYNZt03LE5t5P9b" target="_blank"><img src="https://asciinema.org/a/479bUXPpKkCYNZt03LE5t5P9b.svg" /></a>
 </details>
+
+<details>
+<summary>Display loading</summary>
+<a href="https://asciinema.org/a/M1qB4Yd88yJwoJQVbVK356RkP" target="_blank"><img src="https://asciinema.org/a/M1qB4Yd88yJwoJQVbVK356RkP.svg" /></a>
+</details>
