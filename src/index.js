@@ -53,6 +53,20 @@ const responseTypes = {
   png: 'arraybuffer',
 };
 
+const errorCodes = {
+  ENOENT: "This directory doesn't exists",
+  EACCES: 'Permission denied',
+};
+
+const errors = {
+  url: error => `${error.config.url}: ${error.message}`,
+  path: error => `${path.parse(error.path).dir}: ${errorCodes[error.code]}`,
+};
+
+const chooseErrorType = error => ((error.path) ? errors.path(error) : errors.url(error));
+
+const makeErrorMessage = error => `There is a problem with ${chooseErrorType(error)}`;
+
 const pageLoader = (pageURL, pathToMainDir) => {
   logDebug(`Page URL - ${pageURL}`);
   const nameOfFileForPage = makeFileOrDirNameByLink(pageURL, 'fileForPage');
@@ -96,6 +110,9 @@ const pageLoader = (pageURL, pathToMainDir) => {
         url: resURL,
       }).then(responseRes => fs.writeFile(filepath, responseRes.data)));
       return Promise.all(arrPromises);
+    })
+    .catch((e) => {
+      throw new Error(makeErrorMessage(e));
     });
 };
 

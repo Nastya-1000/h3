@@ -13,3 +13,8 @@
 <summary>Debug</summary>
 <a href="https://asciinema.org/a/r6Y67G6CeK65nER8XxDI8xq1E" target="_blank"><img src="https://asciinema.org/a/r6Y67G6CeK65nER8XxDI8xq1E.svg" /></a>
 </details>
+
+<details>
+<summary>Error handling</summary>
+<a href="https://asciinema.org/a/479bUXPpKkCYNZt03LE5t5P9b" target="_blank"><img src="https://asciinema.org/a/479bUXPpKkCYNZt03LE5t5P9b.svg" /></a>
+</details>

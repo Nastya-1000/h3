@@ -11,9 +11,9 @@ axios.defaults.adapter = httpAdapter;
 const makeFilepath = (dirpath, fileName) => path.join(dirpath, `${fileName}`);
 
 const testDirpath = '__tests__/__fixtures__';
+const host = 'https://hexlet.io';
 
 test('should work', async () => {
-  const host = 'https://hexlet.io';
   const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), '/'));
 
   const pageContent = await fs.readFile(makeFilepath(testDirpath, 'pageContent.txt'), 'utf-8');
@@ -52,4 +52,65 @@ test('should work', async () => {
   expect(resultJsContent).toBe(jsContent);
   expect(resultJpegContent).toEqual(jpegContent);
   expect(resultPngContent).toEqual(pngContent);
+});
+
+test('should throw error with page url', async () => {
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), '/'));
+  nock(host)
+    .get('/courses')
+    .reply(404);
+
+  try {
+    await pageLoader('https://hexlet.io/courses', tmpDir);
+  } catch (e) {
+    expect(e.message).toBe('There is a problem with https://hexlet.io/courses: Request failed with status code 404');
+  }
+});
+
+test('should throw error with resource url', async () => {
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), '/'));
+  const pageContent = await fs.readFile(makeFilepath(testDirpath, 'pageContent.txt'), 'utf-8');
+  const cssContent = await fs.readFile(makeFilepath(testDirpath, 'cssContent.txt'), 'utf-8');
+  nock(host)
+    .get('/courses')
+    .reply(200, pageContent)
+    .get('/content/file1.css')
+    .reply(200, cssContent)
+    .get('/content/file2.js')
+    .reply(404)
+    .get('/content/img1.jpeg')
+    .reply(404)
+    .get('/content/img2.png')
+    .reply(404);
+  try {
+    await pageLoader('https://hexlet.io/courses', tmpDir);
+  } catch (e) {
+    expect(e.message).toBe('There is a problem with https://hexlet.io/content/file2.js: Request failed with status code 404');
+  }
+});
+
+test('should throw error with existing directory', async () => {
+  const wrongDir = '/wrongDir';
+  nock(host)
+    .get('/courses')
+    .reply(200, 'someContent');
+
+  try {
+    await pageLoader('https://hexlet.io/courses', wrongDir);
+  } catch (e) {
+    expect(e.message).toBe(`There is a problem with ${wrongDir}: This directory doesn't exists`);
+  }
+});
+
+test('should throw error with permission to directory', async () => {
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), '/'));
+  await fs.chmod(tmpDir, '000');
+  nock(host)
+    .get('/courses')
+    .reply(200, 'someContent');
+  try {
+    await pageLoader('https://hexlet.io/courses', tmpDir);
+  } catch (e) {
+    expect(e.message).toBe(`There is a problem with ${tmpDir}: Permission denied`);
+  }
 });
