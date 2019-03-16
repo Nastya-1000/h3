@@ -88,15 +88,13 @@ const pageLoader = (pageURL, pathToMainDir) => {
     })
     .then(() => {
       logDebug('Write resources to files');
-      resURLs.forEach(({ resURL, filepath }) => {
-        axios({
-          method: 'get',
-          responseType: responseTypes[path.parse(resURL).ext.slice(1)],
-          url: resURL,
-        }).then(responseRes => fs.writeFile(filepath, responseRes.data));
-      });
-    })
-    .catch(e => throw e);
+      const arrPromises = resURLs.map(({ resURL, filepath }) => axios({
+        method: 'get',
+        responseType: responseTypes[path.parse(resURL).ext.slice(1)],
+        url: resURL,
+      }).then(responseRes => fs.writeFile(filepath, responseRes.data)));
+      return Promise.all(arrPromises);
+    });
 };
 
 export default pageLoader;
