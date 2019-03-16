@@ -21,14 +21,16 @@ const isResLocal = (link) => {
 
 const makeCorrectFileOrDirName = (name, endName) => _.words(name, /[^./]+/g).join('-').concat(endName);
 
+const combineURLParts = urlParts => `${urlParts.host}/${urlParts.pathname}`;
+
 const placesForDownload = {
   dirForRes: {
     parse: url.parse,
-    combine: urlParts => [`${urlParts.host}/${urlParts.pathname}`, '_files'],
+    combine: urlParts => [combineURLParts(urlParts), '_files'],
   },
   fileForPage: {
     parse: url.parse,
-    combine: urlParts => [`${urlParts.host}/${urlParts.pathname}`, '.html'],
+    combine: urlParts => [combineURLParts(urlParts), '.html'],
   },
   fileForRes: {
     parse: path.parse,
